@@ -1,11 +1,16 @@
 use eframe::egui;
 
 fn main() -> Result<(), eframe::Error> {
+    env_logger::init();
     let options = eframe::NativeOptions::default();
     eframe::run_native(
         "My Rust GUI App",
         options,
-        Box::new(|_cc| Box::<MyApp>::default()),
+        Box::new(|cc| {
+            egui_extras::install_image_loaders(&cc.egui_ctx);
+
+            Box::<MyApp>::default()
+        }),
     )
 }
 
@@ -30,6 +35,7 @@ impl eframe::App for MyApp {
                 ui.text_edit_singleline(&mut self.name);
             });
             ui.label(format!("Hello, {}!", self.name));
+            ui.image(egui::include_image!("../images/image.png"));
         });
     }
 }
