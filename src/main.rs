@@ -6,7 +6,9 @@ use integer_sqrt::IntegerSquareRoot;
 
 fn main() -> Result<(), eframe::Error> {
     env_logger::init();
-    let options = eframe::NativeOptions::default();
+    let options = eframe::NativeOptions {
+        ..Default::default()
+    };
     eframe::run_native(
         "My Rust GUI App",
         options,
@@ -19,6 +21,7 @@ fn main() -> Result<(), eframe::Error> {
 }
 
 struct QRCodeApp {
+    last_data: String,
     data: String,
     texture: Option<TextureHandle>,
 }
@@ -26,6 +29,7 @@ struct QRCodeApp {
 impl Default for QRCodeApp {
     fn default() -> Self {
         Self {
+            last_data: "".to_owned(),
             data: "World".to_owned(),
             texture: None,
         }
@@ -54,13 +58,20 @@ impl eframe::App for QRCodeApp {
                 ui.label("Your QRcode content");
                 ui.text_edit_multiline(&mut self.data);
             });
-            let texture = self.texture.insert({
-                ui.ctx().load_texture(
-                    "QRcode",
-                    load_qrcode_from_text(self.data.as_str()).unwrap(),
-                    egui::TextureOptions::default(),
-                )
-            });
+            let texture: &mut TextureHandle;
+            if self.last_data != self.data {
+                self.last_data = self.data.to_owned();
+                texture = self.texture.insert({
+                    ui.ctx().load_texture(
+                        "QRcode",
+                        load_qrcode_from_text(self.data.as_str()).unwrap(),
+                        egui::TextureOptions::default(),
+                    )
+                });
+            }
+            else {
+                texture = self.texture.as_mut().expect("Expect Some in Texture");
+            }
             ui.image((texture.id(), texture.size_vec2()));
         });
     }
