@@ -10,7 +10,7 @@ fn main() -> Result<(), eframe::Error> {
         ..Default::default()
     };
     eframe::run_native(
-        "My Rust GUI App",
+        "My Rust QRCode App",
         options,
         Box::new(|cc| {
             egui_extras::install_image_loaders(&cc.egui_ctx);
@@ -43,7 +43,6 @@ fn load_qrcode_from_text(text: &str) -> Result<egui::ColorImage, image::ImageErr
     let len = image_buffer.len().integer_sqrt()/2;
     
     let size: [usize; 2] = [len, len];
-    println!("{:#?}", size);
     Ok(egui::ColorImage::from_rgba_unmultiplied(
         size,
         pixels.as_slice(),
@@ -53,9 +52,9 @@ fn load_qrcode_from_text(text: &str) -> Result<egui::ColorImage, image::ImageErr
 impl eframe::App for QRCodeApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
-            ui.heading("Hello, Rust QRcode!");
+            ui.heading("Hello, Rust QRCode!");
             ui.horizontal(|ui| {
-                ui.label("Your QRcode content");
+                ui.label("Your QRCode content");
                 ui.text_edit_multiline(&mut self.data);
             });
             let texture: &mut TextureHandle;
@@ -63,7 +62,7 @@ impl eframe::App for QRCodeApp {
                 self.last_data = self.data.to_owned();
                 texture = self.texture.insert({
                     ui.ctx().load_texture(
-                        "QRcode",
+                        "QRCode",
                         load_qrcode_from_text(self.data.as_str()).unwrap(),
                         egui::TextureOptions::default(),
                     )
