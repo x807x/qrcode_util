@@ -49,12 +49,11 @@ fn load_qrcode_from_text(text: &str) -> Result<egui::ColorImage, image::ImageErr
 impl eframe::App for MyApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
-            ui.heading("Hello, Rust GUI!");
+            ui.heading("Hello, Rust QRcode!");
             ui.horizontal(|ui| {
-                ui.label("Your name: ");
-                ui.text_edit_singleline(&mut self.name);
+                ui.label("Your QRcode content");
+                ui.text_edit_multiline(&mut self.name);
             });
-            ui.label(format!("Hello, {}!", self.name));
             let texture = self.texture.insert({
                 ui.ctx().load_texture(
                     "QRcode",
