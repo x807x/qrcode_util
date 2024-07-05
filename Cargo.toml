@@ -7,8 +7,10 @@ edition = "2021"
 
 [dependencies]
 qrcode = "0.14.0"
-eframe = "0.27.2"
-egui_extras = { version="0.27.2", features = ["all_loaders"] }
+rqrr = "0.7.1"
+eframe = "0.28.0"
+egui_extras = { version="0.28.0", features = ["all_loaders"] }
 image = { version = "0.25.1", features = ["jpeg", "png"] }
 env_logger = "0.11.3"
 integer-sqrt = "0.1.5"
+rand = "0.8.5"
