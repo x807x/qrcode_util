@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use egui_learn::*;
+    use qrcode_util::*;
     use image::{ImageBuffer, Luma, Pixel, Rgba};
 
     #[test]

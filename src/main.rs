@@ -1,5 +1,5 @@
 use eframe::egui::{self, TextureHandle};
-use egui_learn::*;
+use qrcode_util::*;
 use std::option::Option;
 
 fn main() -> Result<(), eframe::Error> {
