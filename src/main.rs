@@ -42,19 +42,18 @@ impl eframe::App for QRCodeApp {
                 ui.label("Your QRCode content");
                 ui.text_edit_multiline(&mut self.data);
             });
-            let texture: &mut TextureHandle;
-            if self.previous_data != self.data {
-                self.previous_data = self.data.to_owned();
-                texture = self.texture.insert({
+            let texture: &mut TextureHandle = if self.previous_data != self.data {
+                self.data.clone_into(&mut self.previous_data);
+                self.texture.insert({
                     ui.ctx().load_texture(
                         "QRCode",
                         create_qrcode(self.data.as_str()).unwrap(),
                         egui::TextureOptions::default(),
                     )
-                });
+                })
             } else {
-                texture = self.texture.as_mut().expect("Expect Some in Texture");
-            }
+                self.texture.as_mut().expect("Expect Some in Texture")
+            };
             ui.image((texture.id(), texture.size_vec2()));
         });
     }

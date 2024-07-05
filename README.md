@@ -3,6 +3,11 @@
 ## Description
 This project is a QR code generator with plans to implement QR code reading functionality in the future. It allows users to create QR codes for various types of data.
 
+[![Rust](https://github.com/x807x/qrcode_util/actions/workflows/rust.yml/badge.svg)](https://github.com/x807x/qrcode_util/actions/workflows/rust.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Rustc version](https://img.shields.io/badge/rustc-1.79%2B-informational.svg)](https://www.rust-lang.org/)
+
+
 ## Features
 - Generate QR codes from text input
 
