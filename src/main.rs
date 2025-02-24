@@ -1,8 +1,8 @@
 use eframe::egui::{self, TextureHandle};
 use image::{ImageBuffer, Rgba};
+use qrcode::QrCode;
 use qrcode_util::*;
 use std::option::Option;
-use qrcode::QrCode;
 
 fn main() -> Result<(), eframe::Error> {
     env_logger::init();
@@ -50,7 +50,7 @@ impl eframe::App for QRCodeApp {
                 self.data.clone_into(&mut self.previous_data);
                 let code = QrCode::new(&self.data).unwrap();
                 self.img_buffer = Some(code.render::<Rgba<u8>>().build());
-                
+
                 self.texture.insert({
                     ui.ctx().load_texture(
                         "QRCode",
